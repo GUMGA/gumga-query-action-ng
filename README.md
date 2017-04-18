@@ -12,15 +12,19 @@ bower install gumga-query-action-ng
 npm install gumga-query-action-ng
 ```
 
-### Demo
+---
+
+## Demo
 
 Para execução correta do demo no diretório *exemple*, instale os componentes:
 
-`npm install gumga-controller-ng
+```shell
+npm install gumga-controller-ng
 npm install gumga-generic-filter-ng
 npm install gumga-list-ng
 npm install gumga-query-filter-ng
-npm install gumga-rest-ng`
+npm install gumga-rest-ng
+```
 
 ---
 
