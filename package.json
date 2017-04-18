@@ -1,5 +1,5 @@
 {
-  "name": "gumga-query-action",
+  "name": "gumga-query-action-ng",
   "version": "1.0.0",
   "description": "Gumga Query Action",
   "main": "./src/query-action.js",
