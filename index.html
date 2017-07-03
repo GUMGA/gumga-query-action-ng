@@ -54,15 +54,15 @@
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="node_modules/angular/angular.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="../node_modules/angular/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
-  <script src="../node_modules/gumga-list-ng/dist/gumga-list.min.js"></script>
-  <script src="../node_modules/gumga-rest-ng/dist/gumga-rest.min.js"></script>
-  <script src="../node_modules/gumga-controller-ng/dist/gumga-controller.min.js"></script>
-  <script src="../node_modules/gumga-generic-filter-ng/dist/gumga-generic-filter.js"></script>
-  <script src="../node_modules/gumga-query-filter-ng/dist/gumga-query-filter.js"></script>
-  <script src="../dist/gumga-query-action.js"></script>
+  <script src="node_modules/gumga-list-ng/dist/gumga-list.min.js"></script>
+  <script src="node_modules/gumga-rest-ng/dist/gumga-rest.min.js"></script>
+  <script src="node_modules/gumga-controller-ng/dist/gumga-controller.min.js"></script>
+  <script src="node_modules/gumga-generic-filter-ng/dist/gumga-generic-filter.js"></script>
+  <script src="node_modules/gumga-query-filter-ng/dist/gumga-query-filter.js"></script>
+  <script src="dist/gumga-query-action.js"></script>
   <script>
     angular
       .module('app', ['gumga.queryaction','ui.bootstrap', 'gumga.rest', 'gumga.controller', 'gumga.genericfilter','gumga.list','gumga.queryfilter'])
@@ -70,35 +70,39 @@
         $httpProvider.defaults.headers.common['gumgaToken'] = 'eterno'
       })
       .controller('Ctrl', ['gumgaController', 'GumgaRest', '$scope', '$http', function (gumgaController, GumgaRest, $scope, $http) {
+
         $scope.actions = [
           { key: 'maskAsRead', label: 'Marcar como lido' },
           { key: 'maskAsUnread', label: 'Marcar como não lido' },
           { key: 'total', label: 'Total' },
           { key: 'delete', label: 'Apagar' }
         ]
+
         $scope.search = function(field, param) {
-          // console.log(field, param)
           $scope.query = { searchFields: [field], q: param }
           $scope.destinos.methods.search(field,param)
         }
+
         $scope.advancedSearch = function(param) {
           $scope.query = {aq: param.hql}
           $scope.destinos.methods.advancedSearch(param)
         }
+
         $scope.action = function(queryaction) {
           if ($scope.beyond && ($scope.query || !$scope.query)) {
-            $http.post('http://192.168.25.200:8084/viagem-api/api/destino/queryaction', queryaction)
+            $http.post('https://gumga.io/viagem-api/api/destino/queryaction', queryaction)
               .then(function(response) {
                 $scope.destinos.methods.get($scope.page)
               })
           } else {
-            $http.post('http://192.168.25.200:8084/viagem-api/api/destino/selectedaction', queryaction)
+            $http.post('https://gumga.io/viagem-api/api/destino/selectedaction', queryaction)
               .then(function(response) {
                 $scope.destinos.methods.get($scope.page)
               })
           }
         }
-        var DestinosService = new GumgaRest('http://192.168.25.200:8084/viagem-api/api/destino');
+
+        var DestinosService = new GumgaRest('https://gumga.io/viagem-api/api/destino');
         gumgaController.createRestMethods($scope, DestinosService, 'destinos');
         $scope.destinos.methods.get()
 

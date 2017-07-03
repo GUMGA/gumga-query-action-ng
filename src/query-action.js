@@ -74,7 +74,10 @@ const component = {
       ctrl.actions.shift()
     }
   }
-} 
-angular
+}
+
+const module = angular
   .module('gumga.queryaction', [])
-  .component('gumgaQueryAction', component)
+  .component('gumgaQueryAction', component);
+
+  export default module.name;
